@@ -15,9 +15,14 @@
         canvas.width = 480;
         canvas.height = 320;
         let x = 150;
-        desenha();
+        let t0;
+        let dt;
+        requestAnimationFrame(desenha);
 
-        function desenha(){
+        function desenha(t){
+            
+            t0 = t0 ?? t;
+            dt = (t - t0)/1000;
             //desenha fundo
             let ctx = canvas.getContext("2d");
             ctx.fillStyle ="black";
@@ -26,6 +31,10 @@
             //desenha elementos
             ctx.fillStyle ="write";
             ctx.fillRect(x,50,20,20);
+
+            requestAnimationFrame(desenha);
+            t0 = t;
+
         }
     </script>
 </body> 
