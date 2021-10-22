@@ -14,6 +14,19 @@
         let canvas = document.querySelector("canvas");
         canvas.width = 480;
         canvas.height = 320;
+        let x = 150;
+        desenha();
+
+        function desenha(){
+            //desenha fundo
+            let ctx = canvas.getContext("2d");
+            ctx.fillStyle ="black";
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+        
+            //desenha elementos
+            ctx.fillStyle ="write";
+            ctx.fillRect(x,50,20,20);
+        }
     </script>
 </body> 
 </html>
