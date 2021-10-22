@@ -15,6 +15,7 @@
         canvas.width = 480;
         canvas.height = 320;
         let x = 150;
+        let y  = 100;
         let t0;
         let dt;
         requestAnimationFrame(desenha);
@@ -30,10 +31,11 @@
             
             //atualiza estado
             x = x + 10 * dt;
+            y = 100 + 500 * Math.cos(t/200)*dt;
 
             //desenha elementos
             ctx.fillStyle ="write";
-            ctx.fillRect(x,50,20,20);
+            ctx.fillRect(x,y,20,20);
 
             requestAnimationFrame(desenha);
             t0 = t;
