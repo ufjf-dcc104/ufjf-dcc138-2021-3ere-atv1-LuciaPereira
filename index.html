@@ -20,14 +20,17 @@
         requestAnimationFrame(desenha);
 
         function desenha(t){
-            
+
             t0 = t0 ?? t;
             dt = (t - t0)/1000;
             //desenha fundo
             let ctx = canvas.getContext("2d");
             ctx.fillStyle ="black";
             ctx.fillRect(0,0,canvas.width,canvas.height);
-        
+            
+            //atualiza estado
+            x = x + 10 * dt;
+
             //desenha elementos
             ctx.fillStyle ="write";
             ctx.fillRect(x,50,20,20);
