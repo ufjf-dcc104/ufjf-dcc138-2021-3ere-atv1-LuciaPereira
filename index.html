@@ -12,6 +12,7 @@
     <p> por Lucia Pereira (2021)</p>
     <script>
         let canvas = document.querySelector("canvas");
+        let ctx = canvas.getContext("2d");
         canvas.width = 480;
         canvas.height = 320;
         let x = 150;
@@ -26,17 +27,18 @@
             t0 = t0 ?? t;
             dt = (t - t0)/1000;
             //desenha fundo
-            let ctx = canvas.getContext("2d");
+            
             ctx.fillStyle ="black";
             ctx.fillRect(0,0,canvas.width,canvas.height);
             
             //atualiza estados
-            x = x + 10 * dt;
+            //x = x + 10 * dt;
             a = a + 2*Math.PI*dt;
-            y = 100 + 100 * Math.cos(a);
+            y = 100 + 100*Math.cos(a);
+            x= 100 + 50*Math.sin(a);
 
             //desenha elementos
-            ctx.fillStyle ="write";
+            ctx.fillStyle ="white";
             ctx.fillRect(x,y,20,20);
 
             requestAnimationFrame(desenha);
