@@ -16,7 +16,9 @@
         canvas.width = 480;
         canvas.height = 320;
         let x = 150;
+        let vx = 0; //velocidade
         let y  = 100;
+        let vy =0; //velocidade na posicao y
         let a = 0;
         let t0;
         let dt;
@@ -31,11 +33,10 @@
             ctx.fillStyle ="black";
             ctx.fillRect(0,0,canvas.width,canvas.height);
             
-            //atualiza estados
-            //x = x + 10 * dt;
-            a = a + 2*Math.PI*dt;
-            y = 100 + 100*Math.cos(a);
-            x= 100 + 50*Math.sin(a);
+            //atualiza dinamica dos estados
+            x = x + vx*dt;
+            y = y + vy*dt;
+            
 
             //desenha elementos
             ctx.fillStyle ="white";
@@ -44,6 +45,27 @@
             requestAnimationFrame(desenha);
             t0 = t;
 
+        }
+        addEventListener("keydown", teclaPressionada);
+        function teclaPressionada(e){
+            //adiciona controle de velocidades
+            console.log(e.key);
+            switch(e.key){
+               case "ArrowUp":
+                   vy= -20;
+                   break;
+               case "ArrowDown":
+                    vy = +20;
+                    break;
+               case "ArrowLeft":
+                   vy= -20;
+                   break;
+               case "ArrowRight":
+                    vy = +20;
+                    break;
+               default:
+               break;
+           }
         }
     </script>
 </body> 
