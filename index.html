@@ -15,12 +15,21 @@
         let ctx = canvas.getContext("2d");
         canvas.width = 480;
         canvas.height = 320;
+        //primeiro elemento
         let x = 150;
         let vx = 0; //velocidade
         let ax = 0;
         let y  = 100;
         let vy =0; //velocidade na posicao y
         let ay = 0;
+        //segundo elemento
+        let ex = 150;
+        let evx = 0; //velocidade
+        let eax = 0;
+        let ey  = 100;
+        let evy =0; //velocidade na posicao y
+        let eay = 0;
+
         const k =180;
         let t0;
         let dt;
@@ -31,20 +40,32 @@
             t0 = t0 ?? t;
             dt = (t - t0)/1000;
             //desenha fundo
-            
             ctx.fillStyle ="black";
             ctx.fillRect(0,0,canvas.width,canvas.height);
             
-            //atualiza dinamica dos estados
+            //Controladores
+            eax =0.5* (x - ex) - 0.2*evx;
+            eay =0.5* (y - ey) - 0.2*evy;
+            
+            //atualiza dinamica dos estados branco
             vx = vx + ax*dt;
             x = x + vx*dt;
             vy = vy + ay*dt;
             y = y + vy*dt;
+
+            //atualiza dinamica dos estados vermelho
+            evx = evx + eax*dt;
+            ex = ex + evx*dt;
+            evy = evy + eay*dt;
+            ey = ey + evy*dt;
             
 
             //desenha elementos
             ctx.fillStyle ="white";
             ctx.fillRect(x,y,20,20);
+
+            ctx.fillStyle ="red";
+            ctx.fillRect(ex,ey,20,20);
 
             requestAnimationFrame(desenha);
             t0 = t;
