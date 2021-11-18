@@ -15,13 +15,17 @@
         let ctx = canvas.getContext("2d");
         canvas.width = 480;
         canvas.height = 320;
-        //primeiro elemento
-        let x = 150;
-        let vx = 0; //velocidade
-        let ax = 0;
-        let y  = 100;
-        let vy =0; //velocidade na posicao y
-        let ay = 0;
+        let p = {
+            //primeiro elemento
+             x : 150,
+             vx : 0, //velocidade
+             ax : 0,
+             y  : 100,
+             vy : 0, //velocidade na posicao y
+             ay : 0,
+
+        }
+        
         //segundo elemento
         let ex = 150;
         let evx = 0; //velocidade
@@ -44,14 +48,14 @@
             ctx.fillRect(0,0,canvas.width,canvas.height);
             
             //Controladores
-            eax =0.5* (x - ex) - 0.2*evx;
-            eay =0.5* (y - ey) - 0.2*evy;
+            eax =0.5* (p.x - ex) - 0.2*evx;
+            eay =0.5* (p.y - ey) - 0.2*evy;
             
             //atualiza dinamica dos estados branco
-            vx = vx + ax*dt;
-            x = x + vx*dt;
-            vy = vy + ay*dt;
-            y = y + vy*dt;
+            p.vx = p.vx + p.ax*dt;
+            p.x = p.x +p.vx*dt;
+            p.vy = p.vy + p.ay*dt;
+            p.y = p.y + p.vy*dt;
 
             //atualiza dinamica dos estados vermelho
             evx = evx + eax*dt;
@@ -62,7 +66,7 @@
 
             //desenha elementos
             ctx.fillStyle ="white";
-            ctx.fillRect(x,y,20,20);
+            ctx.fillRect(p.x,p.y,20,20);
 
             ctx.fillStyle ="red";
             ctx.fillRect(ex,ey,20,20);
@@ -78,16 +82,16 @@
             console.log(e.key);
             switch(e.key){
                case "ArrowUp":
-                   vy= -k;
+                   p.vy= -k;
                    break;
                case "ArrowDown":
-                    vy = +k;
+                    p.vy = +k;
                     break;
                case "ArrowLeft":
-                   vx= -k;
+                   p.vx= -k;
                    break;
                case "ArrowRight":
-                    vx =+k;
+                    p.vx =+k;
                     break;
            }
         }
