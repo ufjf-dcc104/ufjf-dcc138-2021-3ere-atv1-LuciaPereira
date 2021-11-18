@@ -22,7 +22,11 @@
              ax : 0,
              y  : 100,
              vy : 0, //velocidade na posicao y
-             ay : 0
+             ay : 0,
+             cor: "white",
+             desenhar:desenharElemento,
+             mover: moverElemento                
+            
         }
         let e = {
             x : 300,
@@ -30,7 +34,10 @@
             ax : 0,
             y  : 200,
             vy :0, //velocidade na posicao y
-            ay : 0
+            ay : 0,
+            cor: "red",
+            desenhar:desenharElemento,
+            mover: moverElemento
          }
      
         const k =180;
@@ -57,23 +64,27 @@
             p.y = p.y + p.vy*dt;
 
             //atualiza dinamica dos estados vermelho
-            e.vx = e.vx + e.ax*dt;
-            e.x = e.x + e.vx*dt;
-            e.vy = e.vy + e.ay*dt;
-            e.y = e.y + e.vy*dt;
+            p.mover();
+            e.mover();
             
-
             //desenha elementos
-            ctx.fillStyle ="white";
-            ctx.fillRect(p.x,p.y,20,20);
-
-            ctx.fillStyle ="red";
-            ctx.fillRect(e.x,e.y,20,20);
-
+            p.desenhar();
+            e.desenhar();
+            
             requestAnimationFrame(desenha);
             t0 = t;
-
         }
+        function moverElemento(){
+                this.vx = this.vx + this.ax*dt;
+                this.x = this.x + this.vx*dt;
+                this.vy = this.vy + this.ay*dt;
+                this.y = this.y + this.vy*dt;
+        }
+        function desenharElemento(){
+                ctx.fillStyle = this.cor;
+                ctx.fillRect(this.x,this.y,20,20);
+        }
+
         addEventListener("keydown", teclaPressionada);
         addEventListener("keyup", teclaSolta);
         function teclaPressionada(event){
@@ -81,16 +92,16 @@
             console.log(event.key);
             switch(event.key){
                case "ArrowUp":
-                   p.vy= -k;
+                   p.ay= -k;
                    break;
                case "ArrowDown":
-                    p.vy = +k;
+                    p.ay = +k;
                     break;
                case "ArrowLeft":
-                   p.vx= -k;
+                   p.ax= -k;
                    break;
                case "ArrowRight":
-                    p.vx =+k;
+                    p.ax =+k;
                     break;
            }
         }
@@ -99,19 +110,15 @@
             console.log(event.key);
             switch(event.key){
                case "ArrowUp":
-                   p.vy= 0;
                    p.ay=0;
                    break;
                case "ArrowDown":
-                    p.vy = 0;
                     p.ay=0;
                     break;
                case "ArrowLeft":
-                   p.vx= 0;
-                   p.ax=0;
+                    p.ax=0;
                    break;
                case "ArrowRight":
-                    p.vx = 0;
                     p.ax=0;
                     break;
                
