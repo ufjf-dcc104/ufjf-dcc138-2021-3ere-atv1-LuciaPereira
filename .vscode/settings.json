@@ -1,3 +1,8 @@
 {
-    "liveServer.settings.multiRootWorkspaceName": "exm01"
+    "liveServer.settings.multiRootWorkspaceName": "exm01",
+    "files.associations": {
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp"
+    }
 }
