@@ -27,20 +27,23 @@
              desenhar:desenharElemento,
              mover: moverElemento,
                            
-            
+        };
+        const sprites = [];
+        for (let ne = 0; ne < 20; ne++) {
+            let e = {
+                x : canvas.width * Math.random(),
+                vx : 0,//velocidade
+                ax : 0,
+                y  : canvas.width * Math.random(),
+                vy :0, //velocidade na posicao y
+                ay : 0,
+                cor: "red",
+                desenhar:desenharElemento,
+                mover: moverElemento,
+                controlar: perseguirAlvo  
+             };
+             sprites.push(e);
         }
-        let e = {
-            x : 300,
-            vx : 0,//velocidade
-            ax : 0,
-            y  : 200,
-            vy :0, //velocidade na posicao y
-            ay : 0,
-            cor: "red",
-            desenhar:desenharElemento,
-            mover: moverElemento,
-            controlar: perseguirAlvo  
-         }
      
         const k =180;
         let t0;
@@ -54,20 +57,20 @@
             //desenha fundo
             ctx.fillStyle ="black";
             ctx.fillRect(0,0,canvas.width,canvas.height);
-            
-            //Controladores
-            e.controlar(p);
-                        
-            //atualiza dinamica dos estados branco
-         
-            //atualiza dinamica dos estados vermelho
+          
             p.mover();
-            e.mover();
-            
-            //desenha elementos
             p.desenhar();
-            e.desenhar();
-            
+            for (let s = 0; s < sprites.length; s++) {
+                const sprite = sprites[s];
+                 //Controladores
+                sprite[0].controlar(p);
+                //atualiza dinamica dos estados 
+                sprite[0].mover();
+                //desenha elementos
+                sprite[0].desenhar();
+                
+            }
+
             requestAnimationFrame(desenha);
             t0 = t;
         }
