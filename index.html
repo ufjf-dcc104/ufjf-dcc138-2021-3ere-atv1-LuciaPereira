@@ -15,6 +15,7 @@
         let ctx = canvas.getContext("2d");
         canvas.width = 480;
         canvas.height = 320;
+        let pontos = 0;
         let p = {
             //primeiro elemento
              x : 150,
@@ -85,11 +86,31 @@
                  //Controladores
                 sprite.controlar?.(p);
                 //atualiza dinamica dos estados 
-                sprite.mover();
+                sprite.mover?.();
                 //desenha elementos
                 sprite.desenhar();
+
+                if (colidiram(o, sprite) && o!== sprite) {
+                    o.x = -1000;
+                    o.y = -1000
+                    o.vx = 0;
+                    o.ax = 0
+                    sprite.x = 1000;
+                    sprite.x = 100;
+                    sprite.ax = 0; 
+                    pontos ++;                   
+                }
+                if (colidiram(p, sprite) && o!== sprite) {
+                    sprite.x = 1000;
+                    sprite.x = 100;
+                    sprite.ax = 0; 
+                    pontos -= 3;                   
+                }
                 
             }
+            ctx.fillStyle = "yellow";
+            ctx.font = "20px Impact";
+            ctx.fillText(pontos, 10,30);
 
             requestAnimationFrame(desenha);
             t0 = t;
@@ -105,8 +126,8 @@
                 ctx.fillRect(this.x,this.y,20,20);
         }
         function perseguirAlvo(alvo){
-            this.ax =100 * Math.sign(alvo.x - this.x) - 0.2 * this.vx;
-            this.ay =100 * Math.sign(alvo.y - this.y) - 0.2*this.vy;
+            this.ax = 100 * Math.sign(alvo.x - this.x) - 0.2 * this.vx;
+            this.ay = 100 * Math.sign(alvo.y - this.y) - 0.2 * this.vy;
         }
         function evitarAlvo(alvo){
             this.ax =-0.5* (alvo.x - this.x) - 0.2*this.vx;
@@ -117,8 +138,7 @@
         addEventListener("keyup", teclaSolta);
         function teclaPressionada(event){
             //adiciona controle de velocidades
-            console.log(event.key);
-            switch(event.key){
+           switch(event.key){
                case "ArrowUp":
                    p.ay= -k;
                    break;
@@ -135,8 +155,8 @@
         }
         function teclaSolta(event){
             //adiciona controle de velocidades
-            console.log(event.key);
-            switch(event.key){
+            switch(event.key)
+            {
                case "ArrowUp":
                    p.ay=0;
                    break;
@@ -157,9 +177,16 @@
                         o.vx = 200;
                         o.ax = 100;
                     }
-                    break;
-               
+                    break;               
            }
+        }
+        function colidiram(A, B) {
+            return!(
+                (A.x  > B.x + 20) 
+                || (A.x + 20 < B.x )
+                || (A.y  > B.y + 20) 
+                || (A.y + 20 < B.y )
+            );
         }
     </script>
 </body> 
