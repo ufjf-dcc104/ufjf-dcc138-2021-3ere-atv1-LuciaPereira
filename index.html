@@ -31,8 +31,8 @@
         const sprites = [];
         for (let ne = 0; ne < 20; ne++) {
             let e = {
-                x : canvas.width * Math.random(),
-                vx : 0,//velocidade
+                x : canvas.width * (1 + 10 * Math.random()),
+                vx : -20,//velocidade
                 ax : 0,
                 y  : canvas.width * Math.random(),
                 vy :0, //velocidade na posicao y
@@ -105,12 +105,12 @@
                 ctx.fillRect(this.x,this.y,20,20);
         }
         function perseguirAlvo(alvo){
-            this.ax =0.5* (alvo.x - e.x) - 0.2*this.vx;
-            this.ay =0.5* (alvo.y - e.y) - 0.2*this.vy;
+            this.ax =100 * Math.sign(alvo.x - this.x) - 0.2 * this.vx;
+            this.ay =100 * Math.sign(alvo.y - this.y) - 0.2*this.vy;
         }
         function evitarAlvo(alvo){
-            this.ax =-0.5* (alvo.x - e.x) - 0.2*this.vx;
-            this.ay =-0.5* (alvo.y - e.y) - 0.2*this.vy;
+            this.ax =-0.5* (alvo.x - this.x) - 0.2*this.vx;
+            this.ay =-0.5* (alvo.y - this.y) - 0.2*this.vy;
         }
 
         addEventListener("keydown", teclaPressionada);
